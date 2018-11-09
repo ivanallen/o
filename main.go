@@ -45,6 +45,7 @@ var contentType = map[string]string{
 	"json": "application/json",
 	"html": "text/html",
 	"md":   "text/markdown",
+	"svg":  "image/svg+xml",
 }
 
 func fillBuf() {
