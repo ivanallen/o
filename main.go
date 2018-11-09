@@ -63,6 +63,18 @@ func o(w http.ResponseWriter, r *http.Request) {
 	w.Write(buf.Bytes())
 }
 
+func help() {
+	fmt.Fprintf(os.Stderr, "usage:\n")
+	fmt.Fprintf(os.Stderr, "    o [file type] [port]\n")
+	fmt.Fprintf(os.Stderr, "    o [port] [file type]\n\n")
+	fmt.Fprintf(os.Stderr, "example:\n")
+	fmt.Fprintf(os.Stderr, "    echo \"<h1>hello world</h1>\" | o 8000 html\n\n")
+	fmt.Fprintf(os.Stderr, "file type:\n")
+	for k, v := range contentType {
+		fmt.Fprintf(os.Stderr, "    %v (%v)\n", k, v)
+	}
+}
+
 func main() {
 	var err error
 	port := 8010
@@ -72,6 +84,11 @@ func main() {
 			fileType = os.Args[1]
 			port = 8010
 		}
+	}
+
+	if fileType == "-h" || fileType == "--help" {
+		help()
+		return
 	}
 
 	if len(os.Args) == 3 {
